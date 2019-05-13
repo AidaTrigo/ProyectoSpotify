@@ -1,0 +1,49 @@
+<app-loading *ngIf="loading"></app-loading>
+
+<div *ngIf="error.falloBool" class="alert alert-success animated fadeIn">
+    <h3>Error {{error.falloCod}}</h3>
+    <p>{{error.falloMens}}</p>
+</div>
+
+<div *ngIf="!loading" class="row">
+    <div class="col-2">
+        <img [src]="playlist.images | noimage" class="img-tumbnail img-circle" />
+    </div>
+    <div class="col">
+        <h3>{{playlist.name}}</h3>
+        <p>
+            <a [href]="playlist.external_urls.spotify" target="_blank">Abrir en Spotify</a>
+        </p>
+    </div>
+    <div class="col-4 text-right">
+        <button routerLink="/home" class="btn btn-outline-success">Volver</button>
+    </div>
+</div>
+
+<div *ngIf="!loading" class="row m-5">
+    <div class="col">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Song</th>
+                    <th>Artist</th>
+                    <th style="width: 300px;">Listen</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr *ngFor="let track of playlist.tracks.items">
+                    <td (click)="redirect(track.track)" class="puntero">{{track.track.name}}</td>
+                    <td>
+                        <p *ngIf="track.track.artists" class="card-text">
+                            <span (click)="redirectToArtist(artista)" *ngFor="let artista of track.track.artists " class="badge badge-pill badge-success puntero">{{artista.name}}</span>
+                        </p>
+                    </td>
+                    <td style="width: 300px;">
+                        <iframe [src]="track.track.id | domseguro:'https://open.spotify.com/embed/track/'" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

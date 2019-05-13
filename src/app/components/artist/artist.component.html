@@ -16,7 +16,7 @@
         </p>
     </div>
     <div class="col-4 text-right">
-        <button routerLink="/search" class="btn btn-outline-success">Volver</button>
+        <button routerLink="/home" class="btn btn-outline-success">Volver</button>
     </div>
 </div>
 
@@ -37,8 +37,8 @@
                     <td>
                         <img [src]="track.album.images | noimage" class="img-thumb">
                     </td>
-                    <td (click)="redirectTrack(track)">{{track.name}}</td>
-                    <td (click)="redirectAlbum(track)">{{track.album.name}}</td>
+                    <td class="puntero" (click)="redirectTrack(track)">{{track.name}}</td>
+                    <td class="puntero" (click)="redirectAlbum(track)">{{track.album.name}}</td>
                     <td>
                         <!--<audio [src]="track.preview_url" controls></audio>-->
                         <iframe [src]="track.id | domseguro:'https://open.spotify.com/embed/track/'" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
@@ -46,5 +46,8 @@
                 </tr>
             </tbody>
         </table>
+        <div *ngIf="topTracks.length === 0" class="alert alert-success animated fadeIn">
+            <p>This artist doesn't have any top track.</p>
+        </div>
     </div>
 </div>

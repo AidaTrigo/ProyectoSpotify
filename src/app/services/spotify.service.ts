@@ -7,11 +7,11 @@ import { map } from 'rxjs/operators';
 })
 export class SpotifyService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getQuery(query: string) {
     const url = `https://api.spotify.com/v1/${query}`;
-    const token = 'BQAQcexInEyTMCDG57baCUeMIKg0918KOczOJ6_2gLekiQCnXdDa7cuvpHihcq0Uc4RWP8WGIs0nJDfTBdE';
+    const token = 'BQDJyzb2sFFF1eOvnv8LW9gu28oYDEa6IjZVWnsmzdW6goIm0RMHIs5ImEeRZKsjPTNpPWsj4T0k3eY3bHM';
 
     // tslint:disable-next-line:object-literal-key-quotes
     const headers = new HttpHeaders({'Authorization': 'Bearer ' + token});
@@ -24,9 +24,9 @@ export class SpotifyService {
     return this.getQuery('browse/new-releases?limit=20').pipe(map((data: any) => data['albums'].items));
   }
 
-  getArtistas(busqueda: string) {
+  getSearchData(busqueda: string, type: string) {
     // tslint:disable-next-line:no-string-literal
-    return this.getQuery(`search?q=${busqueda}&type=artist&limit=20`).pipe(map((data: any) => data['artists'].items));
+    return this.getQuery(`search?q=${busqueda}&type=${type}&limit=20`);
   }
 
   getInfoArtista(id: string) {
@@ -50,5 +50,13 @@ export class SpotifyService {
 
   getInfoTrack(id: string) {
     return this.getQuery(`tracks/${id}`);
+  }
+
+  getPlaylistsByCategory(cat: string) {
+    return this.getQuery(`browse/categories/${cat}/playlists`);
+  }
+
+  getInfoPlaylist(id: string) {
+    return this.getQuery(`playlists/${id}`);
   }
 }

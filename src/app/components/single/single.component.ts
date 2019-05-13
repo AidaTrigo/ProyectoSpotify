@@ -21,8 +21,8 @@ export class SingleComponent {
       let id: string;
       this.route.params.subscribe(params => {
         id = params.id;
-        if (id.substr(0, 1) === 't') {
-          id = id.substr(1);
+        if (id.substr(0, 5) === 'track') {
+          id = id.substr(5);
           this.track = true;
         }
       });
@@ -33,7 +33,7 @@ export class SingleComponent {
       if (this.track) {
         this.spotify.getInfoTrack(id).subscribe((data: any) => {
           this.single = data;
-          console.log(data);
+          console.log(this.single);
           setTimeout(() => {
             this.loading = false;
           }, 100);

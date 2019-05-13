@@ -23,5 +23,8 @@ export class CardsComponent {
     if (item.type === 'artist') {
       this.router.navigate(['/artist', item.id]);
     }
+    if (item.type === 'playlist') {
+      this.router.navigate(['/playlist', item.id]);
+    }
   }
 }

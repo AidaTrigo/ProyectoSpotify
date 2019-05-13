@@ -42,7 +42,7 @@
                     <td>{{single.name}}</td>
                     <td>
                         <p *ngIf="single.artists" class="card-text">
-                            <span (click)="redirect(artista)" *ngFor="let artista of single.artists " class="badge badge-pill badge-success ">{{artista.name}}</span>
+                            <span (click)="redirect(artista)" *ngFor="let artista of single.artists " class="badge badge-pill badge-success puntero">{{artista.name}}</span>
                         </p>
                     </td>
                     <td width="300">

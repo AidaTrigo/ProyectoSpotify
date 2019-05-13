@@ -9,15 +9,18 @@ import { HomeComponent } from './components/home/home.component';
 import { SearchComponent } from './components/search/search.component';
 import { ArtistComponent } from './components/artist/artist.component';
 import { NavbarComponent } from './components/shared/navbar/navbar.component';
-
-// import Routes
-import { ROUTES } from './app.routes';
-import { NoimagePipe } from './pipes/noimage.pipe';
-import { DomseguroPipe } from './pipes/domseguro.pipe';
 import { CardsComponent } from './components/cards/cards.component';
 import { LoadingComponent } from './components/shared/loading/loading.component';
 import { AlbumComponent } from './components/album/album.component';
 import { SingleComponent } from './components/single/single.component';
+
+// import Routes
+import { ROUTES } from './app.routes';
+
+// import Pipes
+import { NoimagePipe } from './pipes/noimage.pipe';
+import { DomseguroPipe } from './pipes/domseguro.pipe';
+import { PlaylistComponent } from './components/playlist/playlist.component';
 
 
 @NgModule({
@@ -32,7 +35,8 @@ import { SingleComponent } from './components/single/single.component';
     CardsComponent,
     LoadingComponent,
     AlbumComponent,
-    SingleComponent
+    SingleComponent,
+    PlaylistComponent
   ],
   imports: [
     BrowserModule,

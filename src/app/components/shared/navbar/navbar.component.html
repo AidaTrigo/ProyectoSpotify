@@ -12,7 +12,19 @@
                 <a class="nav-link" routerLink="home">Home</a>
             </li>
             <li class="nav-item" routerLinkActive="active">
-                <a class="nav-link" routerLink="search">Search</a>
+                <a class="nav-link" (click)="refreshSearch = true" routerLink="search/artists">Artists</a>
+            </li>
+            <li class="nav-item" routerLinkActive="active">
+                <a class="nav-link" (click)="refreshSearch = true" routerLink="search/albums">Albums & Songs</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle puntero" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Playlists
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown" routerLinkActive="active">
+                    <a class="dropdown-item" (click)="refreshSearch = true" routerLink="search/playlist-name">Search by name</a>
+                    <a class="dropdown-item" (click)="refreshSearch = true" routerLink="search/playlist-category">Search by category</a>
+                </div>
             </li>
         </ul>
     </div>

@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
-import { SpotifyService } from 'src/app/services/spotify.service';
+import { SpotifyService } from '../../services/spotify.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-artist',
-  templateUrl: './artist.component.html'
+  selector: 'app-playlist',
+  templateUrl: './playlist.component.html',
+  styles: []
 })
-export class ArtistComponent {
+export class PlaylistComponent {
 
-  artista: any = {};
-  topTracks: any[] = [];
+  playlist: any = {};
   loading = true;
   error = {
     falloBool: false,
@@ -22,16 +22,12 @@ export class ArtistComponent {
     this.route.params.subscribe(params => {
       id = params.id;
     });
-    this.getArtista(id);
+    this.getPlaylist(id);
   }
 
-  getArtista(id: string) {
-    this.spotify.getInfoArtista(id).subscribe((data: any) => {
-      this.artista = data;
-      console.log(data);
-    });
-    this.spotify.getArtistsTopTracks(id).subscribe((data: any) => {
-      this.topTracks = data;
+  getPlaylist(id: string) {
+    this.spotify.getInfoPlaylist(id).subscribe((data: any) => {
+      this.playlist = data;
       console.log(data);
       setTimeout(() => {
         this.loading = false;
@@ -44,11 +40,12 @@ export class ArtistComponent {
     });
   }
 
-  redirectTrack(track: any) {
-    this.router.navigate(['/track', 'track' + track.id]);
+  redirect(cancion: any) {
+    this.router.navigate(['/single', 'track' + cancion.id]);
   }
 
-  redirectAlbum(track: any) {
-    this.router.navigate(['/album', track.album.id]);
+  redirectToArtist(artist: any) {
+    this.router.navigate(['/artist', artist.id]);
   }
+
 }

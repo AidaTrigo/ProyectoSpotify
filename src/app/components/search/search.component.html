@@ -1,16 +1,16 @@
 <div class="row">
     <div class="col">
-        <input #busqueda type="text" (keyup)="buscar(busqueda.value)" class="form-control" placeholder="Search artist">
+        <input #busqueda type="text" (keyup)="buscar(busqueda.value)" class="form-control" [placeholder]="'Search ' + type" />
     </div>
 </div>
 
 <app-loading *ngIf="loading"></app-loading>
 
-<div *ngIf="error.falloBool" class="alert alert-success animated fadeIn">
+<div *ngIf="result === []" class="alert alert-success animated fadeIn">
     <h3>Error {{error.falloCod}}</h3>
     <p>{{error.falloMens}}</p>
 </div>
 
-<app-cards *ngIf="!loading && artistas.length !== 0" [items]="artistas"></app-cards>
+<app-cards *ngIf="!loading && result.length !== 0" [items]="result"></app-cards>
 
-<h2 *ngIf="!loading && artistas.length === 0 && busqueda.value !== ''" class="m-5 text-center animated fadeIn">No artists found!</h2>
+<h2 *ngIf="!loading && result.length === 0 && busqueda.value !== ''" class="m-5 text-center animated fadeIn">No artists found!</h2>

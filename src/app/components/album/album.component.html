@@ -11,6 +11,9 @@
     </div>
     <div class="col">
         <h3>{{album.name}}</h3>
+        <p *ngIf="album.artists" class="card-text">
+            <span (click)="redirectToArtist(artista)" *ngFor="let artista of album.artists " class="puntero badge badge-pill badge-success ">{{artista.name}}</span>
+        </p>
         <p>
             <a [href]="album.external_urls.spotify" target="_blank">Abrir en Spotify</a>
         </p>
@@ -32,7 +35,7 @@
 
             <tbody>
                 <tr *ngFor="let track of tracks">
-                    <td>{{track.name}}</td>
+                    <td (click)="redirect(track)" class="puntero">{{track.name}}</td>
                     <td style="width: 300px;">
                         <iframe [src]="track.id | domseguro:'https://open.spotify.com/embed/track/'" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
                     </td>

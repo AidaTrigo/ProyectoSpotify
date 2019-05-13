@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { SpotifyService } from 'src/app/services/spotify.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-album',
@@ -17,7 +17,7 @@ export class AlbumComponent {
     falloMens: ''
   };
 
-    constructor(private spotify: SpotifyService, private route: ActivatedRoute) {
+    constructor(private spotify: SpotifyService, private route: ActivatedRoute, private router: Router) {
       let id: string;
       this.route.params.subscribe(params => {
         id = params.id;
@@ -39,6 +39,19 @@ export class AlbumComponent {
       });
       this.spotify.getAlbumTracks(id).subscribe((data: any) => {
         this.tracks = data;
+      }, (fallo) => {
+        this.error.falloBool = true;
+        this.error.falloCod = fallo.error.error.status;
+        this.error.falloMens = fallo.error.error.message;
+        this.loading = false;
       });
+    }
+
+    redirect(cancion: any) {
+      this.router.navigate(['/single', 'track' + cancion.id]);
+    }
+
+    redirectToArtist(artist: any) {
+      this.router.navigate(['/artist', artist.id]);
     }
 }
