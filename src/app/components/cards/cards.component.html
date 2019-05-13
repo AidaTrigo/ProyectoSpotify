@@ -1,0 +1,14 @@
+<div class="card-columns m-5 animated fadeIn">
+    <div (click)="redirect(item)" *ngFor="let item of items" class="card puntero">
+        <img [src]="item.images | noimage" class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">{{item.name}}</h5>
+            <p *ngIf="item.artists" class="card-text">
+                <span (click)="redirect(artista)" *ngFor="let artista of item.artists " class="badge badge-pill badge-success ">{{artista.name}}</span>
+            </p>
+            <p *ngIf="item.genres " class="card-text ">
+                <span *ngFor="let genre of item.genres " class="badge badge-pill badge-success ">{{genre}}</span>
+            </p>
+        </div>
+    </div>
+</div>

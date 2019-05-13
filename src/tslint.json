@@ -7,6 +7,10 @@
       "app",
       "camelCase"
     ],
+    "max-line-length": [
+        false,
+        240
+    ],
     "component-selector": [
       true,
       "element",
