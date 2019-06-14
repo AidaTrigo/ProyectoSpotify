@@ -1,0 +1,40 @@
+<h1 width="200px" [ngClass]="storage.theme.text">
+    History
+    <small><small><i (mouseover)="help = true" (mouseout)="help = false" (click)="dropHistory()" [hidden]="historyFiltered.length === 0 || !filters.all" class="fas fa-trash puntero" style="margin-left: 10px;"></i></small></small>
+    <small *ngIf="help" style="margin-left: 5px; font-size: 12pt;">Delete all</small>
+</h1>
+
+<span>
+    <div (click)=" all.checked = true" class="custom-control custom-checkbox custom-control-inline">
+        <input [(ngModel)]="filters.all" (click)="getCheckeds('all');" type="checkbox" class="custom-control-input" id="all" #all>
+        <label class="custom-control-label" for="all">All</label>
+    </div>
+    
+    <div class="custom-control custom-checkbox custom-control-inline">
+        <input [(ngModel)]="filters.artists" (click)="getCheckeds('artistsOnly');" type="checkbox" class="custom-control-input" id="artistsOnly" #artistsOnly>
+        <label class="custom-control-label" for="artistsOnly">Artists</label>
+    </div>
+
+    <div class="custom-control custom-checkbox custom-control-inline">
+        <input [(ngModel)]="filters.albums" (click)="getCheckeds('albumsOnly');" type="checkbox" class="custom-control-input" id="albumsOnly" #albumsOnly>
+        <label class="custom-control-label" for="albumsOnly">Albums</label>
+    </div>
+
+    <div class="custom-control custom-checkbox custom-control-inline">
+        <input [(ngModel)]="filters.songs" (click)="getCheckeds('songsOnly');" type="checkbox" class="custom-control-input" id="songsOnly" #songsOnly>
+        <label class="custom-control-label" for="songsOnly">Songs</label>
+    </div>
+
+    <div class="custom-control custom-checkbox custom-control-inline">
+        <input [(ngModel)]="filters.playlists" (click)="getCheckeds('playlistsOnly');" type="checkbox" class="custom-control-input" id="playlistsOnly" #playlistsOnly>
+        <label class="custom-control-label" for="playlistsOnly">Playlists</label>
+    </div>
+</span>
+
+<app-cards *ngIf="historyFiltered.length !== 0" [items]="historyFiltered"></app-cards>
+
+<h2 *ngIf="historyFiltered.length === 0" class="m-5 text-center animated fadeIn" [ngClass]="storage.theme.text">
+    There is no history yet!
+</h2>
+
+<div *ngIf="historyFiltered.length === 0" style="height: 100%; width: 100%; padding: 8.05%;"></div>

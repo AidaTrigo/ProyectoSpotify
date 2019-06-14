@@ -7,14 +7,26 @@ import { map } from 'rxjs/operators';
 })
 export class SpotifyService {
 
-  constructor(private http: HttpClient) {}
+  token: string;
+
+  constructor(private http: HttpClient) {
+    if (localStorage.getItem('token')) {
+      this.token = localStorage.getItem('token');
+    } else {
+      this.token = '';
+    }
+  }
+
+  setToken(tok: string) {
+    localStorage.setItem('token', tok);
+    this.token = tok;
+  }
 
   getQuery(query: string) {
     const url = `https://api.spotify.com/v1/${query}`;
-    const token = 'BQDJyzb2sFFF1eOvnv8LW9gu28oYDEa6IjZVWnsmzdW6goIm0RMHIs5ImEeRZKsjPTNpPWsj4T0k3eY3bHM';
 
     // tslint:disable-next-line:object-literal-key-quotes
-    const headers = new HttpHeaders({'Authorization': 'Bearer ' + token});
+    const headers = new HttpHeaders({'Authorization': 'Bearer ' + this.token});
 
     return this.http.get(url, {headers});
   }
@@ -22,6 +34,11 @@ export class SpotifyService {
   getNewReleases() {
     // tslint:disable-next-line:no-string-literal
     return this.getQuery('browse/new-releases?limit=20').pipe(map((data: any) => data['albums'].items));
+  }
+
+  getFeaturedPlaylists() {
+    // tslint:disable-next-line:no-string-literal
+    return this.getQuery('browse/featured-playlists?limit=9').pipe(map((data: any) => data['playlists'].items));
   }
 
   getSearchData(busqueda: string, type: string) {
@@ -43,11 +60,6 @@ export class SpotifyService {
     return this.getQuery(`artists/${id}/top-tracks?country=${country}`).pipe(map((data: any) => data['tracks']));
   }
 
-  getAlbumTracks(id: string) {
-    // tslint:disable-next-line:no-string-literal
-    return this.getQuery(`albums/${id}/tracks`).pipe(map((data: any) => data['items']));
-  }
-
   getInfoTrack(id: string) {
     return this.getQuery(`tracks/${id}`);
   }
@@ -58,5 +70,9 @@ export class SpotifyService {
 
   getInfoPlaylist(id: string) {
     return this.getQuery(`playlists/${id}`);
+  }
+
+  getRecomendationsByCategory(cat: string) {
+    return this.getQuery(`recommendations?seed_genres=${cat}`);
   }
 }

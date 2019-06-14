@@ -1,0 +1,51 @@
+<nav [ngClass]="storage.theme.navbar" class="navbar navbar-expand-md">
+    <a class="navbar-brand" style="font-weight: bold; text-decoration: none;" routerLink="home" [class]="storage.theme.text">
+        <img src="assets/img/banner-ico.png" width="30" height="30" alt=""> OpenSpotify
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent" style="margin-left: 20px;">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item" routerLinkActive="active">
+                <a class="nav-link" routerLink="home" data-balloon="Hola" data-balloon-pos="down">Home</a>
+            </li>
+            <li class="nav-item" style="margin-right: 30px;" routerLinkActive="active">
+                <a class="nav-link" routerLink="featured-playlists">Featured Playlists</a>
+            </li>
+            <li class="nav-item" style="cursor: default;">
+                <span class="navbar-text">Search for:</span>
+            </li>
+            <li class="nav-item" style="margin-left: 10px;" routerLinkActive="active">
+                <a class="nav-link" routerLink="search/artists"><small>Artists</small></a>
+            </li>
+            <li class="nav-item" style="margin-left: 5px;" routerLinkActive="active">
+                <a class="nav-link" routerLink="search/albums"><small>Albums & Songs</small></a>
+            </li>
+            <li class="nav-item dropdown" style="margin-left: 5px;">
+                <a class="nav-link dropdown-toggle puntero" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <small>Playlists</small>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown" routerLinkActive="active">
+                    <a class="dropdown-item" routerLink="search/playlist-name"><small>Search by name</small></a>
+                    <a class="dropdown-item" routerLink="search/playlist-category"><small>Search by category</small></a>
+                </div>
+            </li>
+            <li class="nav-item" style="margin-left: 5px;" routerLinkActive="active">
+                <a class="nav-link" routerLink="recommendations"><small>Recommendations</small></a>
+            </li>
+        </ul>
+        <div class="nav-item" style="margin-right: 5px; margin-left: auto; width: 15px;" title="History">
+            <i class="fas fa-history puntero" routerLink="history" *ngIf="!storage.theme.themeLight" style="color: #f8f9fa;"></i>
+            <i class="fas fa-history puntero" routerLink="history" *ngIf="storage.theme.themeLight" style="color: #343a40;"></i>
+        </div>
+        <div class="nav-item" style="margin-right: 5px; width: 15px;" title="Change theme">
+            <i class="fas fa-palette puntero" (click)="storage.changeTheme()" *ngIf="!storage.theme.themeLight" style="color: #f8f9fa;"></i>
+            <i class="fas fa-palette puntero" (click)="storage.changeTheme()" *ngIf="storage.theme.themeLight" style="color: #343a40;"></i>
+        </div>
+        <div class="nav-item" style="margin-right: 15px; width: 15px;" title="Favourites">
+            <i class="fas fa-star puntero" routerLink="favourites" style="color: goldenrod; margin-left: 0px;"></i>
+        </div>
+    </div>
+</nav>

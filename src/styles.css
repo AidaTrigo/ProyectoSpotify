@@ -1,12 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
 
-body {
+.darkTheme {
     background-color: black;
-    color: white !important;
+}
+
+.carousel-caption {
+    position: relative;
+    bottom: -10%;
+    left: 0%;
 }
 
 hr {
-    border-color: white;
+    border-color: rgb(146, 146, 146);
 }
 
 .puntero {
@@ -34,6 +39,25 @@ hr {
 .img-thumb {
     width: 50px;
     height: 50px;
+}
+
+.fixed1 {
+    top: 35% !important;
+}
+
+.fixed2 {
+    top: 25% !important;
+}
+
+.reproductor {
+    position: fixed;
+    top: 310px;
+    left: 5%;
+    width: 300px;
+}
+
+i:focus {
+    outline: 0;
 }
 
 
@@ -65,3 +89,5 @@ hr {
 .fadeIn {
     animation-name: fadeIn;
 }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

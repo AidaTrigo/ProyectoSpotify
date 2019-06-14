@@ -1,0 +1,17 @@
+<h1 width="200px" [ngClass]="storage.theme.text">My Favourites</h1>
+
+<div style="position: fixed; top: 200px; right: 45px;" *ngIf="storage.favourites.length !== 0">
+    <button (click)="downloadFavourites()" type="button" class="btn btn-success btn-sm" style="color: black !important;">
+            <i *ngIf="!loading" class="fas fa-download"></i>
+            <i *ngIf="loading" class="fas fa-sync-alt fa-spin"></i>
+        Download data
+    </button>
+</div>
+
+<app-cards *ngIf="storage.favourites.length !== 0" [items]="storage.favourites"></app-cards>
+
+<h2 *ngIf="storage.favourites.length === 0" class="m-5 text-center animated fadeIn" [ngClass]="storage.theme.text">
+    There are no saved favourites yet!
+</h2>
+
+<div *ngIf="loading || storage.favourites.length === 0" style="height: 100%; width: 100%; padding: 9.5%;"></div>

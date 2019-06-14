@@ -5,24 +5,46 @@
     <p>{{error.falloMens}}</p>
 </div>
 
-<div *ngIf="!loading" class="row">
+<div *ngIf="!loading && !error.falloBool" class="row" [ngClass]="storage.theme.text">
     <div class="col-2">
         <img [src]="artista.images | noimage" class="img-tumbnail img-circle" />
     </div>
     <div class="col">
-        <h3>{{artista.name}}</h3>
+        <h3>
+            {{artista.name}}
+            <i title="Remove from favourites" *ngIf="fav" class="fas fa-star puntero animated fadeIn fast" (click)="favPressed()" style="color: goldenrod;"></i>
+            <i title="Add to favourites" *ngIf="!fav" class="far fa-star puntero animated fadeIn fast" (click)="favPressed()" style="color: goldenrod;"></i>
+        </h3>
         <p>
-            <a [href]="artista.external_urls.spotify" target="_blank">Abrir en Spotify</a>
+            <a [href]="artista.external_urls.spotify" target="_blank">
+                <button type="button" class="btn btn-success btn-sm" style="color: black !important;">
+                    <i class="fab fa-spotify"></i>
+                    Open artist in Spotify
+                </button>
+            </a>
+            <a style="margin-left: 20px;" [href]="artista.name | domseguroWords:'https://www.youtube.com/results?search_query='" target="_blank">
+                <button type="button" class="btn btn-danger btn-sm">
+                    <i class="fab fa-youtube"></i>
+                    Search artist in Youtube
+                </button>
+            </a>
+            <a style="position: relative; top: 8px;" [href]="artista.name | domseguroWords:'https://music.amazon.es/search/'" target="_blank">
+                <button type="button" class="btn btn-warning btn-sm">
+                    <i class="fab fa-amazon"></i>
+                    Search artist in Amazon Music
+                </button>
+            </a>
         </p>
     </div>
     <div class="col-4 text-right">
-        <button routerLink="/home" class="btn btn-outline-success">Volver</button>
+        <button routerLink="/home" class="btn btn-outline-success">Back to home</button>
     </div>
 </div>
 
-<div *ngIf="!loading" class="row m-5">
+<div *ngIf="!loading && !error.falloBool" class="row m-5">
+
     <div class="col">
-        <table class="table">
+        <table class="table" [ngClass]="storage.theme.text">
             <thead>
                 <tr>
                     <th>Picture</th>
@@ -51,3 +73,6 @@
         </div>
     </div>
 </div>
+
+<div *ngIf="loading" style="height: 100%; width: 100%; padding: 14%;"></div>
+<div *ngIf="error.falloBool" style="height: 100%; width: 100%; padding: 12.15%;"></div>

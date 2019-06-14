@@ -1,49 +1,32 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, Title } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
-import { HomeComponent } from './components/home/home.component';
-import { SearchComponent } from './components/search/search.component';
-import { ArtistComponent } from './components/artist/artist.component';
-import { NavbarComponent } from './components/shared/navbar/navbar.component';
-import { CardsComponent } from './components/cards/cards.component';
-import { LoadingComponent } from './components/shared/loading/loading.component';
-import { AlbumComponent } from './components/album/album.component';
-import { SingleComponent } from './components/single/single.component';
 
 // import Routes
 import { ROUTES } from './app.routes';
 
-// import Pipes
-import { NoimagePipe } from './pipes/noimage.pipe';
-import { DomseguroPipe } from './pipes/domseguro.pipe';
-import { PlaylistComponent } from './components/playlist/playlist.component';
+// import Modules
+import { ComponentsModule } from './components/components.module';
+import { PipesModule } from './pipes/pipes.module';
 
 
 @NgModule({
   declarations: [
-    AppComponent,
-    HomeComponent,
-    SearchComponent,
-    ArtistComponent,
-    NavbarComponent,
-    NoimagePipe,
-    DomseguroPipe,
-    CardsComponent,
-    LoadingComponent,
-    AlbumComponent,
-    SingleComponent,
-    PlaylistComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
-    RouterModule.forRoot(ROUTES, {useHash: true})
+    RouterModule.forRoot(ROUTES, {useHash: true}),
+    ComponentsModule,
+    PipesModule
   ],
-  providers: [],
+  providers: [
+    Title
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

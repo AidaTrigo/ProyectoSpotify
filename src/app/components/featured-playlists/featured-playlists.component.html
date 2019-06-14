@@ -1,0 +1,13 @@
+<h1 *ngIf="!error.falloBool" [ngClass]="storage.theme.text">Featured Playlists</h1>
+
+<app-loading *ngIf="loading"></app-loading>
+
+<div *ngIf="error.falloBool" class="alert alert-success animated fadeIn">
+    <h3>Error {{error.falloCod}}</h3>
+    <p>{{error.falloMens}}</p>
+</div>
+
+<app-cards *ngIf="!loading && !error.falloBool" [items]="playlistsDestacadas"></app-cards>
+
+<div *ngIf="loading || playlistsDestacadas.length === 0" style="height: 100%; width: 100%; padding: 14%;"></div>
+<div *ngIf="error.falloBool" style="height: 100%; width: 100%; padding: 12.15%;"></div>

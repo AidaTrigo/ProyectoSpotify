@@ -1,4 +1,4 @@
-<h1>Last Releases</h1>
+<h1 *ngIf="!error.falloBool" [ngClass]="storage.theme.text">Last Releases</h1>
 
 <app-loading *ngIf="loading"></app-loading>
 
@@ -7,4 +7,7 @@
     <p>{{error.falloMens}}</p>
 </div>
 
-<app-cards *ngIf="!loading" [items]="nuevasCanciones"></app-cards>
+<app-cards *ngIf="!loading && !error.falloBool" [items]="nuevasCanciones"></app-cards>
+
+<div *ngIf="loading || nuevasCanciones.length === 0" style="height: 100%; width: 100%; padding: 14%;"></div>
+<div *ngIf="error.falloBool" style="height: 100%; width: 100%; padding: 12.15%;"></div>

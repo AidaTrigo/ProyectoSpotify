@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { SpotifyService } from 'src/app/services/spotify.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { StorageService } from '../../services/storage.service';
+import Swal from 'sweetalert2';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-search',
@@ -9,6 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class SearchComponent {
 
+  infoShowing = false;
   type: string;
   typeStrg: string;
   result: any[] = [];
@@ -19,7 +23,7 @@ export class SearchComponent {
     falloMens: ''
   };
 
-  constructor(private spotify: SpotifyService, private route: ActivatedRoute) {
+  constructor(private spotify: SpotifyService, private router: Router, private route: ActivatedRoute, public storage: StorageService, private titleService: Title) {
     route.params.subscribe((data: any) => {
       this.result = [];
       switch (data.type) {
@@ -43,7 +47,10 @@ export class SearchComponent {
             this.typeStrg = 'playlist';
             this.type = 'playlists by category';
             break;
+          default:
+            this.router.navigate(['/home']);
       }
+      this.titleService.setTitle('Search ' + this.type + ' - OpenSpotify');
     });
   }
 
@@ -53,17 +60,35 @@ export class SearchComponent {
     this.result = [];
     if (busqueda !== '') {
       if (this.type === 'playlists by category') {
-        this.spotify.getPlaylistsByCategory(busqueda).subscribe((data: any) => {
+        this.spotify.getPlaylistsByCategory(busqueda.toLowerCase()).subscribe((data: any) => {
           this.result = data.playlists.items;
         }, (fallo) => {
-          this.error.falloBool = true;
-          this.error.falloCod = fallo.error.error.status;
-          this.error.falloMens = fallo.error.error.message;
           this.loading = false;
+          // tslint:disable-next-line:triple-equals
+          if (fallo.error.error.status == 401) {
+            this.error.falloBool = true;
+            this.error.falloCod = fallo.error.error.status;
+            this.error.falloMens = fallo.error.error.message;
+            Swal.fire({
+              type: 'error',
+              title: 'The token is not valid anymore.',
+              text: 'Insert a new token to continue.',
+              input: 'text',
+              inputAttributes: {
+                autocapitalize: 'off'
+              },
+              showCancelButton: false,
+              allowEscapeKey: false,
+              allowOutsideClick: false,
+              confirmButtonText: 'Ready'
+            }).then((result) => {
+              this.spotify.setToken(result.value);
+              location.reload();
+            });
+          }
         });
       } else {
         this.spotify.getSearchData(busqueda, this.typeStrg).subscribe((data: any) => {
-          console.log(data);
           if (data.artists) {
             this.result = data.artists.items;
           }
@@ -81,12 +106,27 @@ export class SearchComponent {
           this.error.falloCod = fallo.error.error.status;
           this.error.falloMens = fallo.error.error.message;
           this.loading = false;
+          Swal.fire({
+            type: 'error',
+            title: 'The token is not valid anymore.',
+            text: 'Insert a new token to continue.',
+            input: 'text',
+            inputAttributes: {
+              autocapitalize: 'off'
+            },
+            showCancelButton: false,
+            allowEscapeKey: false,
+            allowOutsideClick: false,
+            confirmButtonText: 'Ready'
+          }).then((result) => {
+            this.spotify.setToken(result.value);
+            location.reload();
+          });
         });
       }
     } else {
       this.result = [];
     }
-    console.log(this.result);
     setTimeout(() => {
       this.loading = false;
     }, 100);

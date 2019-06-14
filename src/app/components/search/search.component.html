@@ -1,16 +1,30 @@
-<div class="row">
+<h1 *ngIf="!error.falloBool" [ngClass]="storage.theme.text">{{typeStrg | capsPlural}}</h1>
+
+<div [hidden]="error.falloBool" class="row">
     <div class="col">
-        <input #busqueda type="text" (keyup)="buscar(busqueda.value)" class="form-control" [placeholder]="'Search ' + type" />
+        <input #busqueda type="text" (keyup)="buscar(busqueda.value)" style="width: 95%;" class="form-control" [placeholder]="'Search ' + type" />
+        <i *ngIf="type === 'playlists by name'" (click)="infoShowing = !infoShowing" class="fas fa-info-circle" style="cursor: pointer; color: gray; position: absolute; top: 12px; right: 7%;"></i>
+    </div>
+</div>
+
+<div *ngIf="type === 'playlists by name' && infoShowing && !error.falloBool" class="animated fadeIn alert alert-success" role="alert" style="width: 170px; position: absolute; top: 18%; right: 0.8%; border-color: gray;">
+    <div>
+        Decade's Playlists
+        <hr /> If you want to find them, write 'All Out X0s'
     </div>
 </div>
 
 <app-loading *ngIf="loading"></app-loading>
 
-<div *ngIf="result === []" class="alert alert-success animated fadeIn">
+<div *ngIf="error.falloBool" class="alert alert-success animated fadeIn">
     <h3>Error {{error.falloCod}}</h3>
     <p>{{error.falloMens}}</p>
 </div>
 
-<app-cards *ngIf="!loading && result.length !== 0" [items]="result"></app-cards>
+<app-cards *ngIf="!loading && result.length !== 0 && !error.falloBool" [items]="result"></app-cards>
 
-<h2 *ngIf="!loading && result.length === 0 && busqueda.value !== ''" class="m-5 text-center animated fadeIn">No artists found!</h2>
+<h2 *ngIf="!loading && result.length === 0 && busqueda.value !== '' && !error.falloBool" class="m-5 text-center animated fadeIn" [ngClass]="storage.theme.text">No {{typeStrg + 's'}} found!</h2>
+
+<div *ngIf="busqueda.value === ''" style="height: 100%; width: 100%; padding: 13.48%;"></div>
+<div *ngIf="result.length === 0 && busqueda.value !== '' || loading" style="height: 100%; width: 100%; padding: 7.42%;"></div>
+<div *ngIf="error.falloBool" style="height: 100%; width: 100%; padding: 4.73%;"></div>

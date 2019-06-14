@@ -5,42 +5,75 @@
     <p>{{error.falloMens}}</p>
 </div>
 
-<div *ngIf="!loading" class="row">
+<div *ngIf="!loading && !error.falloBool" class="row" [ngClass]="storage.theme.text">
     <div class="col-2">
         <img [src]="album.images | noimage" class="img-tumbnail img-circle" />
     </div>
     <div class="col">
-        <h3>{{album.name}}</h3>
+        <h3>
+            {{album.name}}
+            <i title="Remove from favourites" *ngIf="fav" class="fas fa-star puntero animated fadeIn fast" (click)="favPressed()" style="color: goldenrod;"></i>
+            <i title="Add to favourites" *ngIf="!fav" class="far fa-star puntero animated fadeIn fast" (click)="favPressed()" style="color: goldenrod;"></i>
+        </h3>
         <p *ngIf="album.artists" class="card-text">
             <span (click)="redirectToArtist(artista)" *ngFor="let artista of album.artists " class="puntero badge badge-pill badge-success ">{{artista.name}}</span>
         </p>
         <p>
-            <a [href]="album.external_urls.spotify" target="_blank">Abrir en Spotify</a>
+            <a [href]="album.external_urls.spotify" target="_blank">
+                <button type="button" class="btn btn-success btn-sm" style="color: black !important;">
+                    <i class="fab fa-spotify"></i>
+                    Open album in Spotify
+                </button>
+            </a>
+            <a style="margin-left: 20px;" [href]="album.name + ' - ' + album.artists[0].name | domseguroWords:'https://www.youtube.com/results?search_query='" target="_blank">
+                <button type="button" class="btn btn-danger btn-sm">
+                    <i class="fab fa-youtube"></i>
+                    Search album in Youtube
+                </button>
+            </a>
+            <a style="position: relative; top: 8px;" [href]="album.name + ' - ' + album.artists[0].name | domseguroWords:'https://music.amazon.es/search/'" target="_blank">
+                <button type="button" class="btn btn-warning btn-sm">
+                    <i class="fab fa-amazon"></i>
+                    Search album in Amazon Music
+                </button>
+            </a>
         </p>
     </div>
     <div class="col-4 text-right">
-        <button routerLink="/home" class="btn btn-outline-success">Volver</button>
+        <button routerLink="/home" class="btn btn-outline-success">Back to home</button>
     </div>
 </div>
 
-<div *ngIf="!loading" class="row m-5">
-    <div class="col">
-        <table class="table">
+<div *ngIf="!loading && !error.falloBool" class="row m-2">
+
+    <div>
+        <p style="color: transparent">Hola</p>
+    </div>
+
+    <div style="position: sticky; top: 30%; margin-top: 30px;" class="reproductor">
+        <iframe [src]="album.id | domseguro:'https://open.spotify.com/embed/album/'" width="300" height="310" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+    </div>
+
+    <div class="col" style="position: relative; bottom: 315px; margin-left: 30%;">
+        <table class=" table " [ngClass]="storage.theme.text " style="width: 100%; ">
             <thead>
                 <tr>
                     <th>Song</th>
-                    <th style="width: 300px;">Listen</th>
+                    <th style="width: 300px; ">Listen</th>
                 </tr>
             </thead>
 
             <tbody>
-                <tr *ngFor="let track of tracks">
-                    <td (click)="redirect(track)" class="puntero">{{track.name}}</td>
-                    <td style="width: 300px;">
-                        <iframe [src]="track.id | domseguro:'https://open.spotify.com/embed/track/'" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+                <tr *ngFor="let track of tracks ">
+                    <td (click)="redirect(track) " class="puntero ">{{track.name}}</td>
+                    <td style="width: 300px; ">
+                        <iframe [src]="track.id | domseguro: 'https://open.spotify.com/embed/track/' " width="300 " height="80 " frameborder="0 " allowtransparency="true " allow="encrypted-media "></iframe>
                     </td>
                 </tr>
             </tbody>
         </table>
     </div>
 </div>
+
+<div *ngIf="loading " style="height: 100%; width: 100%; padding: 14%; "></div>
+<div *ngIf="error.falloBool " style="height: 100%; width: 100%; padding: 12.15%; "></div>
