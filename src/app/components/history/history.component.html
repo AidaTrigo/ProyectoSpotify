@@ -7,27 +7,27 @@
 <span>
     <div (click)=" all.checked = true" class="custom-control custom-checkbox custom-control-inline">
         <input [(ngModel)]="filters.all" (click)="getCheckeds('all');" type="checkbox" class="custom-control-input" id="all" #all>
-        <label class="custom-control-label" for="all">All</label>
+        <label class="custom-control-label" [ngClass]="storage.theme.text" for="all">All</label>
     </div>
     
     <div class="custom-control custom-checkbox custom-control-inline">
         <input [(ngModel)]="filters.artists" (click)="getCheckeds('artistsOnly');" type="checkbox" class="custom-control-input" id="artistsOnly" #artistsOnly>
-        <label class="custom-control-label" for="artistsOnly">Artists</label>
+        <label class="custom-control-label" [ngClass]="storage.theme.text" for="artistsOnly">Artists</label>
     </div>
 
     <div class="custom-control custom-checkbox custom-control-inline">
         <input [(ngModel)]="filters.albums" (click)="getCheckeds('albumsOnly');" type="checkbox" class="custom-control-input" id="albumsOnly" #albumsOnly>
-        <label class="custom-control-label" for="albumsOnly">Albums</label>
+        <label class="custom-control-label" [ngClass]="storage.theme.text" for="albumsOnly">Albums</label>
     </div>
 
     <div class="custom-control custom-checkbox custom-control-inline">
         <input [(ngModel)]="filters.songs" (click)="getCheckeds('songsOnly');" type="checkbox" class="custom-control-input" id="songsOnly" #songsOnly>
-        <label class="custom-control-label" for="songsOnly">Songs</label>
+        <label class="custom-control-label" [ngClass]="storage.theme.text" for="songsOnly">Songs</label>
     </div>
 
     <div class="custom-control custom-checkbox custom-control-inline">
         <input [(ngModel)]="filters.playlists" (click)="getCheckeds('playlistsOnly');" type="checkbox" class="custom-control-input" id="playlistsOnly" #playlistsOnly>
-        <label class="custom-control-label" for="playlistsOnly">Playlists</label>
+        <label class="custom-control-label" [ngClass]="storage.theme.text" for="playlistsOnly">Playlists</label>
     </div>
 </span>
 
