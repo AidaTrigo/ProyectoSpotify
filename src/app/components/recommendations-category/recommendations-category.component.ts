@@ -28,6 +28,8 @@ export class RecommendationsCategoryComponent {
         this.category = data.category;
         this.titleService.setTitle(this.category + ' Recommendations - OpenSpotify');
         this.buscar(this.category);
+      } else {
+        this.titleService.setTitle('Recommendations - OpenSpotify');
       }
     });
   }
