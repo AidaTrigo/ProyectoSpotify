@@ -42,7 +42,7 @@ export class RecommendationsCategoryComponent {
     if (busqueda !== '') {
         this.spotify.getRecomendationsByCategory(busqueda).subscribe((data: any) => {
           this.recommendations = data.tracks;
-          this.titleService.setTitle(this.category + ' recommendations - OpenSpotify');
+          this.titleService.setTitle(busqueda + ' recommendations - OpenSpotify');
         }, (fallo) => {
           this.titleService.setTitle('Error - Recommendations - OpenSpotify');
           this.loading = false;
