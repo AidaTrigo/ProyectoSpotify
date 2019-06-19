@@ -24,7 +24,7 @@ export class RecommendationsCategoryComponent {
 
   constructor(private spotify: SpotifyService, public storage: StorageService, private route: ActivatedRoute, private titleService: Title) {
     route.params.subscribe((data: any) => {
-      if (data) {
+      if (data && data.category) {
         this.category = data.category;
         this.titleService.setTitle(this.category + ' Recommendations - OpenSpotify');
         this.buscar(this.category);
